@@ -8,17 +8,17 @@ import DashboardLayout from '@/layouts/dashboards';
 // import { Routers } from './RoutesList';
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
-const LoginRoute={
-    path:'/login',
-    Component: lazy(()=>import("@/pages/sys/login/Login"))
-}
+const LoginRoute = {
+    path: '/login',
+    Component: lazy(() => import('@/pages/sys/login/Login'))
+};
 const PAGE_NOT_FOUND_ROUTE = {
     path: '*',
-    element: <Navigate to="/404" replace />,
+    element: <Navigate to="/404" replace />
 };
 
-export default function Router(){
-    const permissionRoutes = usePermissionRoutes()
+export default function Router() {
+    const permissionRoutes = usePermissionRoutes();
     const asyncRoutes: AppRouteObject = {
         path: '/',
         element: (
@@ -26,10 +26,9 @@ export default function Router(){
                 <DashboardLayout />
             </AuthGuard>
         ),
-        children: [{ index: true, element: <Navigate to={HOMEPAGE} replace /> }, ...permissionRoutes],
+        children: [{ index: true, element: <Navigate to={HOMEPAGE} replace /> }, ...permissionRoutes]
     };
     const routes = [LoginRoute, asyncRoutes, PAGE_NOT_FOUND_ROUTE];
     const router = createHashRouter(routes as unknown as RouteObject[]);
-    console.log(router);
     return <RouterProvider router={router} />;
 }

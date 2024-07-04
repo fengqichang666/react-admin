@@ -1,8 +1,9 @@
 import { message as Message, Modal } from 'antd';
-import axios, { AxiosRequestConfig, AxiosError, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { Result } from '#/api';
 import { ResultEnum } from '#/enum';
 import { CreateAxiosOptions, RequestOptions } from '#/axios.ts';
+import store from '@/store';
 
 // 创建 axios 实例
 const axiosInstance = axios.create({
@@ -10,12 +11,14 @@ const axiosInstance = axios.create({
     timeout: 20 * 1000,
     headers: { 'Content-Type': 'application/json;charset=utf-8' }
 });
-
 // 请求拦截
 axiosInstance.interceptors.request.use(
     (config) => {
+        const accessToken = store.getState().user?.userToken?.accessToken;
         // 在请求被发送之前做些什么
-        config.headers.Authorization = 'Bearer Token';
+        if (accessToken) {
+            config.headers.Authorization = 'Bearer Token' + accessToken;
+        }
         return config;
     },
     (error) => {
@@ -23,7 +26,7 @@ axiosInstance.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-let modal:any = null;
+let modal: any = null;
 // 响应拦截
 axiosInstance.interceptors.response.use(
     (res: AxiosResponse<Result>) => {

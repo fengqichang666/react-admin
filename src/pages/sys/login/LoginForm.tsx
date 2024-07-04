@@ -4,13 +4,17 @@ import { useAppDispatch } from '@/store';
 import { userSignIn } from '@/store/features/user.ts';
 import { SignInReq } from '@/api/services/userService.ts';
 import { DEFAULT_USER, TEST_USER } from '@/_mock/assets.ts';
+import { useNavigate } from 'react-router';
 
+const { VITE_APP_HOMEPAGE: HOME } = import.meta.env;
 type FieldType = Pick<SignInReq, 'username' | 'password'>;
 const LoginForm = () => {
     const { loginState, setLoginState } = useLoginStateContext();
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        dispatch(userSignIn(values));
+        await dispatch(userSignIn(values)).unwrap();
+        navigate('/', { replace: true });
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
@@ -92,7 +96,7 @@ const LoginForm = () => {
                 </Button>
             </Col>
             <Col span={6} flex="1" onClick={() => setLoginState(LoginStateEnum.REGISTER)}>
-                <Button className="w-full !text-sm">登录方式1</Button>
+                <Button className="w-full !text-sm">注册</Button>
             </Col>
         </Row>
     </>;

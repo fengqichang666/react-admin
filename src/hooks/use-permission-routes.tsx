@@ -15,15 +15,16 @@ import { Navigate } from 'react-router-dom';
 export function usePermissionRoutes() {
     const userInfo = useAppSelector(selectUserInfo) as UserInfo;
     const permissions = userInfo.permissions;
-    return useMemo(()=>{
+    return useMemo(() => {
         const flattenedPermissions = flattenTrees(permissions);
         const permissionRoutes = transformPermissionToMenuRoutes(
             permissions || [],
-            flattenedPermissions,
+            flattenedPermissions
         );
         return [...permissionRoutes];
-    },[permissions])
+    }, [permissions]);
 }
+
 /**
  * transform Permission[] to  AppRouteObject[]
  * @param permissions
@@ -31,7 +32,7 @@ export function usePermissionRoutes() {
  */
 function transformPermissionToMenuRoutes(
     permissions: Permission[],
-    flattenedPermissions: Permission[],
+    flattenedPermissions: Permission[]
 ) {
     return permissions.map((permission) => {
         const {
@@ -47,7 +48,7 @@ function transformPermissionToMenuRoutes(
             newFeature,
             component,
             parentId,
-            children = [],
+            children = []
         } = permission;
 
         const appRoute: AppRouteObject = {
@@ -57,8 +58,8 @@ function transformPermissionToMenuRoutes(
                 key: getCompleteRoute(permission, flattenedPermissions),
                 hideMenu: !!hide,
                 hideTab,
-                disabled: status === BasicStatus.DISABLE,
-            },
+                disabled: status === BasicStatus.DISABLE
+            }
         };
 
         if (order) appRoute.order = order;
@@ -87,7 +88,7 @@ function transformPermissionToMenuRoutes(
             if (!isEmpty(children)) {
                 appRoute.children.unshift({
                     index: true,
-                    element: <Navigate to={children[0].route} replace />,
+                    element: <Navigate to={children[0].route} replace />
                 });
             }
         } else if (type === PermissionType.MENU) {
@@ -106,6 +107,7 @@ function transformPermissionToMenuRoutes(
         return appRoute;
     });
 }
+
 /**
  * Splicing from the root permission route to the current permission route
  * @param {Permission} permission - current permission
@@ -123,6 +125,7 @@ function getCompleteRoute(permission: Permission, flattenedPermissions: Permissi
 
     return currentRoute;
 }
+
 // 使用 import.meta.glob 获取所有路由组件
 const entryPath = '/src/pages';
 const pages = import.meta.glob('/src/pages/**/*.tsx');
@@ -130,9 +133,10 @@ export const pagesSelect = Object.entries(pages).map(([path]) => {
     const pagePath = path.replace(entryPath, '');
     return {
         label: pagePath,
-        value: pagePath,
+        value: pagePath
     };
 });
+
 // 构建绝对路径的函数
 function resolveComponent(path: string) {
     return pages[`${entryPath}${path}`];

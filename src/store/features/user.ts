@@ -4,10 +4,9 @@ import { StorageEnum } from '#/enum.ts';
 import { UserInfo, UserToken } from '#/entity.ts';
 import userApi, { SignInReq } from '@/api/services/userService.ts';
 
-
 const initialState = {
-    userInfo: getItem<UserInfo>(StorageEnum.User)||{},
-    userToken: getItem<UserToken>(StorageEnum.Token) || {},
+    userInfo: getItem<UserInfo>(StorageEnum.User) || {},
+    userToken: getItem<UserToken>(StorageEnum.Token) || {}
 };
 export const userSlice = createSlice({
     name: 'user',
@@ -41,6 +40,7 @@ export const userSlice = createSlice({
         selectUserInfo: state => state.userInfo
     }
 });
+
 export const userSignIn = createAsyncThunk(
     'user/login',
     async (data: SignInReq) => {
