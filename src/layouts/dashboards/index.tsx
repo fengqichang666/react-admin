@@ -1,13 +1,24 @@
 import { Suspense } from 'react';
-import { Spin } from 'antd';
+import { CircleLoading } from '@/components/loading';
+import Nav from '@/layouts/dashboards/nav.tsx';
+import { Outlet } from 'react-router-dom';
 
+const navVertical = (
+    <div className="z-50 hidden h-full flex-shrink-0 md:block">
+        <Nav />
+    </div>
+);
 export default function DashboardLayout() {
     return <div>
-        <Suspense fallback={<Spin />}>
+        <Suspense fallback={<CircleLoading />}>
+            {navVertical}
             {/*<Header offsetTop={themeLayout === ThemeLayout.Vertical ? offsetTop : undefined} />*/}
-            {/*{nav}*/}
             {/*<Main ref={mainEl} offsetTop={offsetTop} />*/}
             DashboardLayout
+
+            <main>
+                <Outlet></Outlet>
+            </main>
         </Suspense>
     </div>;
 }

@@ -1,10 +1,10 @@
 import { LoginStateEnum, useLoginStateContext } from '@/pages/sys/login/providers/LoginStateProvider.tsx';
 import { Alert, Button, Col, Form, FormProps, Input, Row, Tag } from 'antd';
 import { useAppDispatch } from '@/store';
-import { userSignIn } from '@/store/features/user.ts';
-import { SignInReq } from '@/api/services/userService.ts';
 import { DEFAULT_USER, TEST_USER } from '@/_mock/assets.ts';
 import { useNavigate } from 'react-router';
+import userApi, { SignInReq } from '@/api/services/userService.ts';
+import { setUserInfo, setUserToken } from '@/store/features/user.ts';
 
 const { VITE_APP_HOMEPAGE: HOME } = import.meta.env;
 type FieldType = Pick<SignInReq, 'username' | 'password'>;
@@ -13,8 +13,11 @@ const LoginForm = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
-        await dispatch(userSignIn(values)).unwrap();
-        navigate('/', { replace: true });
+        const res = await userApi.signin(values);
+        const { accessToken, refreshToken, user } = res;
+        dispatch(setUserInfo(user));
+        dispatch(setUserToken({ accessToken, refreshToken }));
+        navigate(HOME, { replace: true });
     };
 
     const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {

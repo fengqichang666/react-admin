@@ -3,11 +3,11 @@ import { Provider } from 'react-redux';
 import store from '@/store';
 import Router from '@/router';
 import { Suspense } from 'react';
-import { Spin } from 'antd';
+import { CircleLoading } from '@/components/loading';
 
 const App = () => {
     return <Provider store={store}>
-        <Suspense fallback={<Spin />}>
+        <Suspense fallback={<CircleLoading />}>
             <Router />
         </Suspense>
     </Provider>;

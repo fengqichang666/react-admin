@@ -10,7 +10,6 @@ type Props = {
 const AuthGuard = ({ children }: Props) => {
     const navigate = useNavigate();
     const { accessToken } = useAppSelector(selectToken);
-    debugger
     const check = useCallback(() => {
         if (!accessToken) {
             navigate('/login');
