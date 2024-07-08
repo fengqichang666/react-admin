@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { createHashRouter, Navigate, RouteObject } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
-import { usePermissionRoutes } from '@/hooks/use-permission-routes.tsx';
+import { usePermissionRoutes } from '@/router/hooks/use-permission-routes.tsx';
 import { AppRouteObject } from '#/router.ts';
 import AuthGuard from '@/router/components/auth-guard.tsx';
 import DashboardLayout from '@/layouts/dashboards';

@@ -1,7 +1,7 @@
 import Logo from '@/components/logo';
 import { Menu } from 'antd';
 import { useLocation } from 'react-router';
-import { usePermissionRoutes } from '@/hooks/use-permission-routes.tsx';
+import { usePermissionRoutes } from '@/router/hooks/use-permission-routes.tsx';
 import { useRouteToMenuFn } from '@/router/hooks/use-route-to-menu.tsx';
 import { menuFilter } from '@/router/utils.ts';
 

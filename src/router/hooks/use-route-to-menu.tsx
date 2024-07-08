@@ -2,8 +2,10 @@ import { useCallback } from 'react';
 import { AppRouteObject } from '#/router.ts';
 import { Iconify, SvgIcon } from '@/components/icon';
 import { ItemType } from 'antd/es/menu/hooks/useItems';
+import { useTranslation } from 'react-i18next';
 
 export const useRouteToMenuFn = () => {
+    const { t } = useTranslation();
     const routeToMenuFn = useCallback((items: AppRouteObject[]) => {
         return items.filter((item) => !item.meta?.hideMenu).map((item) => {
             const menuItem: any = {};
@@ -13,8 +15,9 @@ export const useRouteToMenuFn = () => {
                 menuItem.key = key;
                 menuItem.disabled = disabled;
                 menuItem.label = (
-                    <div className="">
-                        {label} {suffix}
+                    <div className="inline-flex w-full items-center">
+                        <div>{t(label)}</div>
+                        {suffix}
                     </div>
                 );
                 if (icon) {
