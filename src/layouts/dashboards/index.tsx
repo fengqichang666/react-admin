@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { CircleLoading } from '@/components/loading';
 import Nav from '@/layouts/dashboards/nav.tsx';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 
 const navVertical = (
     <div className="z-50 hidden h-full flex-shrink-0 md:block">

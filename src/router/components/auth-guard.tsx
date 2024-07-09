@@ -1,25 +1,27 @@
 import { useCallback, useEffect } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { useAppSelector } from '@/store';
 import { selectToken } from '@/store/features/user.ts';
-import { useNavigate } from 'react-router';
+import PageError from '@/pages/sys/error/PageError.tsx';
+import { useRouter } from '@/router/hooks';
 
 type Props = {
     children: React.ReactNode;
 };
 const AuthGuard = ({ children }: Props) => {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { accessToken } = useAppSelector(selectToken);
     const check = useCallback(() => {
         if (!accessToken) {
-            navigate('/login');
+            router.replace('/login');
         }
-    }, [accessToken]);
+    }, [accessToken, router]);
 
     useEffect(() => {
         check();
     }, [check]);
 
-    return <>{children}</>;
+    return <ErrorBoundary FallbackComponent={PageError}>{children}</ErrorBoundary>;
 };
 export default AuthGuard;
