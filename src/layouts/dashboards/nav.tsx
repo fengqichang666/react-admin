@@ -5,6 +5,7 @@ import { usePermissionRoutes } from '@/router/hooks/use-permission-routes.tsx';
 import { useRouteToMenuFn } from '@/router/hooks/use-route-to-menu.tsx';
 import { menuFilter } from '@/router/utils.ts';
 import { useEffect, useState } from 'react';
+import { useThemeToken } from '@/theme/hooks/use-theme-token.ts';
 
 const Nav = () => {
     const navigate = useNavigate();
@@ -21,6 +22,8 @@ const Nav = () => {
     const onOpenChange: MenuProps['onOpenChange'] = (keys) => {
         setOpenKeys(keys);
     };
+
+    const { colorPrimary } = useThemeToken();
     useEffect(() => {
         console.log(matches);
         const openKeys = matches.filter(match => match.pathname !== '/').map(match => match.pathname);
@@ -31,7 +34,7 @@ const Nav = () => {
             <div className="h-full flex flex-col" style={{ width: 260 }}>
                 <div className="flex items-center h-20 py-4 justify-center">
                     <div><Logo /></div>
-                    <span className="ml-2 text-xl font-bold">React Admin </span>
+                    <span className="ml-2 text-xl font-bold" style={{ color: colorPrimary }}>React Admin </span>
                 </div>
                 <div>
                     <Menu mode="inline"

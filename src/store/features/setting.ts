@@ -17,7 +17,7 @@ const settings: SettingsType = {
     themeLayout: ThemeLayout.Vertical,
     themeMode: ThemeMode.Light,
     themeStretch: false,
-    themeColorPresets: ThemeColorPresets.Default
+    themeColorPresets: ThemeColorPresets.Orange
 };
 export const settingSlice = createSlice({
     name: 'settings',
@@ -31,11 +31,11 @@ export const settingSlice = createSlice({
             state.setting = { ...settings };
             removeItem(StorageEnum.Settings);
         }
-    },
-    selectors: {
-        selectSetting: (state) => state.setting
     }
+    // selectors: {
+    //     selectSetting: (state) => state.setting
+    // }
 });
 export const { setSettings, clearSettings } = settingSlice.actions;
-export const { selectSetting } = settingSlice.selectors;
+// export const { selectSetting } = settingSlice.selectors;
 export default settingSlice.reducer;
