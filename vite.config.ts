@@ -15,6 +15,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
             open: '/',
             proxy: createProxy(wrapperEnv(env).VITE_PROXY)
         },
+        base: command === 'build' ? '/react-admin/' : '/',
         resolve: {
             // alias: {
             //   "@": path.resolve(__dirname, "./src"),
