@@ -9,12 +9,11 @@ const navVertical = (
     </div>
 );
 export default function DashboardLayout() {
-    return <div>
+    return <div className="flex h-screen overflow-hidden">
         <Suspense fallback={<CircleLoading />}>
             {navVertical}
             {/*<Header offsetTop={themeLayout === ThemeLayout.Vertical ? offsetTop : undefined} />*/}
             {/*<Main ref={mainEl} offsetTop={offsetTop} />*/}
-            DashboardLayout
 
             <main>
                 <Outlet></Outlet>

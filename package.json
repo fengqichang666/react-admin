@@ -28,6 +28,7 @@
     "react-router-dom": "^6.18.0",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
+    "simplebar-react": "^3.2.6",
     "styled-components": "^6.1.11",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-tsconfig-paths": "^4.3.2"

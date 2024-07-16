@@ -6,6 +6,7 @@ import { useRouteToMenuFn } from '@/router/hooks/use-route-to-menu.tsx';
 import { menuFilter } from '@/router/utils.ts';
 import { useEffect, useState } from 'react';
 import { useThemeToken } from '@/theme/hooks/use-theme-token.ts';
+import Scrollbar from '@/components/scrollbar';
 
 const Nav = () => {
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ const Nav = () => {
                     <div><Logo /></div>
                     <span className="ml-2 text-xl font-bold" style={{ color: colorPrimary }}>React Admin </span>
                 </div>
-                <div>
+                <Scrollbar style={{ height: 'calc(100vh - 70px)' }}>
                     <Menu mode="inline"
                           items={menuList}
                           className="h-full"
@@ -47,7 +48,7 @@ const Nav = () => {
                           openKeys={openKeys}
                           onOpenChange={onOpenChange}
                     />
-                </div>
+                </Scrollbar>
             </div>
         </>
     );
