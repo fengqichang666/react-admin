@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </React.StrictMode>
 );
 let options: StartOptions = { onUnhandledRequest: 'bypass' };
-if (MODE == 'product') {
+if (MODE != 'development') {
     options.serviceWorker = { url: `${packageJson.homepage}/mockServiceWorker.js` };
 }
 worker.start(options);
