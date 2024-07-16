@@ -6,7 +6,7 @@ import Overlay2 from '@/assets/images/background/overlay_2.jpg';
 import DashboardImg from '@/assets/images/background/dashboard.png';
 
 const Login = () => {
-    return (<Layout className="relative flex w-full h-screen flex-row">
+    return (<Layout className="relative flex w-full h-screen !flex-row">
         <div className="md:flex flex-col grow items-center justify-center gap-[80px] "
              style={{ background: `center center / cover no-repeat,url(${Overlay2})` }}>
             <div className="text-3xl font-bold lg:text-4xl xl:text-5xl leading-normal">Admin</div>
