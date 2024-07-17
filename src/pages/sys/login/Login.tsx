@@ -9,9 +9,10 @@ const Login = () => {
     return (<Layout className="relative flex w-full h-screen !flex-row">
         <div className="md:flex flex-col grow items-center justify-center gap-[80px] "
              style={{ background: `center center / cover no-repeat,url(${Overlay2})` }}>
-            <div className="text-3xl font-bold lg:text-4xl xl:text-5xl leading-normal">Admin</div>
+            <div className="text-3xl font-bold lg:text-4xl xl:text-5xl leading-normal text-indigo-700">Unknown Admin
+            </div>
             <img className="max-w-[480px] xl:max-w-[560px]" src={DashboardImg} alt="" />
-            <Typography.Text>
+            <Typography.Text className="!text-indigo-700">
                 Backstage management system
             </Typography.Text>
         </div>

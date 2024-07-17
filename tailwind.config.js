@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors';
+
 export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
@@ -8,7 +10,7 @@ export default {
             md: '768px',
             lg: '992px',
             xl: '1200px',
-            '2xl': '1600px',
+            '2xl': '1600px'
         },
         colors: {
             black: '#000000',
@@ -33,7 +35,8 @@ export default {
             'gray-600': '#637381',
             'gray-700': '#454F5B',
             'gray-800': '#212B36',
-            'gray-900': '#161C24'
+            'gray-900': '#161C24',
+            ...colors
         },
         extend: {}
     },

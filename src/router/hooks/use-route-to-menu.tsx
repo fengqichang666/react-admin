@@ -15,8 +15,8 @@ export const useRouteToMenuFn = () => {
                 menuItem.key = key;
                 menuItem.disabled = disabled;
                 menuItem.label = (
-                    <div className="inline-flex w-full items-center">
-                        <div>{t(label)}</div>
+                    <div className={'inline-flex w-full items-center justify-between'}>
+                        <div className="">{t(label)}</div>
                         {suffix}
                     </div>
                 );
@@ -26,7 +26,6 @@ export const useRouteToMenuFn = () => {
                             menuItem.icon = <SvgIcon icon={icon} size={24} className="ant-menu-item-icon" />;
                         } else {
                             menuItem.icon = <Iconify icon={icon} size={24} className="ant-menu-item-icon" />;
-
                         }
                     } else {
                         menuItem.icon = icon;
@@ -38,6 +37,6 @@ export const useRouteToMenuFn = () => {
             }
             return menuItem as ItemType;
         });
-    }, []);
+    }, [t]);
     return routeToMenuFn;
 };
