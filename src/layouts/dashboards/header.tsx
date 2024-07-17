@@ -9,11 +9,11 @@ const header: FunctionComponent = () => {
 
     return (
         <div style={{ height: '80px', width: 'calc(100vw - 260px)' }}
-             className="flex flex-row justify-between items-center px-4 xl:px-6 2xl:px-10 text-gray flex-grow">
+             className="flex flex-row items-center justify-between flex-grow px-4 xl:px-6 2xl:px-10 text-[gray]">
             <div className="flex items-baseline">
-                <div className="ml-4 hidden md:block"><BreadCrumb></BreadCrumb></div>
+                <div className="hidden ml-4 md:block"><BreadCrumb></BreadCrumb></div>
             </div>
-            <div className="flex ">
+            <div className="flex">
                 <SearchBar />
                 <NoticeButton />
                 <SettingButton />
