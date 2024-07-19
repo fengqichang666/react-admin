@@ -38,7 +38,7 @@ const Nav = () => {
         <>
             <div className="h-full flex flex-col" style={{
                 width: 260,
-                borderRight: `1px dashed grey}`
+                borderRight: `1px dashed rgba(217, 217, 217, 0.6)`
             }}>
                 <div className="flex items-center h-20 py-4 justify-center">
                     <div><Logo /></div>

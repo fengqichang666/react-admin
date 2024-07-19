@@ -1,8 +1,8 @@
-import { Suspense } from 'react';
+import { Suspense, useRef } from 'react';
 import { CircleLoading } from '@/components/loading';
 import Nav from '@/layouts/dashboards/nav.tsx';
-import { Outlet } from 'react-router';
 import Header from '@/layouts/dashboards/header.tsx';
+import Main from '@/layouts/dashboards/main.tsx';
 
 const navVertical = (
     <div className="z-50 hidden h-full flex-shrink-0 md:block">
@@ -10,15 +10,13 @@ const navVertical = (
     </div>
 );
 export default function DashboardLayout() {
+    const mainEl = useRef(null);
     return <div className="flex h-screen overflow-hidden">
         <Suspense fallback={<CircleLoading />}>
-            {navVertical}
             <Header />
-            {/*<Main ref={mainEl} offsetTop={offsetTop} />*/}
+            {navVertical}
+            <Main ref={mainEl} />
 
-            <main>
-                <Outlet></Outlet>
-            </main>
         </Suspense>
     </div>;
 }
