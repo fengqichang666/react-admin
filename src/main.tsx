@@ -11,9 +11,9 @@ import { StartOptions } from 'msw/browser';
 
 const { MODE } = import.meta.env;
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <React.StrictMode>
+    // <React.StrictMode>
         <App />
-    </React.StrictMode>
+    // </React.StrictMode>
 );
 let options: StartOptions = { onUnhandledRequest: 'bypass' };
 if (MODE != 'development') {
