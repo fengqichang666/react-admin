@@ -5,6 +5,7 @@ import NoticeButton from '@/layouts/_common/notice.tsx';
 import SettingButton from '@/layouts/_common/setting-button.tsx';
 import { IconButton, Iconify } from '@/components/icon';
 import AccountDropdown from '@/layouts/_common/account-dropdown.tsx';
+import LocalePicker from '@/components/locale-picker';
 
 
 const header: FunctionComponent = () => {
@@ -18,6 +19,7 @@ const header: FunctionComponent = () => {
                 </div>
                 <div className="flex">
                     <SearchBar />
+                    <LocalePicker />
                     <IconButton>
                         <Iconify icon="mdi:github" size="24" />
                     </IconButton>

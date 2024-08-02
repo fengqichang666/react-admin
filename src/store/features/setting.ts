@@ -17,7 +17,7 @@ const settings: SettingsType = {
     themeLayout: ThemeLayout.Vertical,
     themeMode: ThemeMode.Light,
     themeStretch: false,
-    themeColorPresets: ThemeColorPresets.Orange
+    themeColorPresets: ThemeColorPresets.Default
 };
 export const settingSlice = createSlice({
     name: 'settings',
