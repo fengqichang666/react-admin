@@ -10,7 +10,7 @@ import Scrollbar from '@/components/scrollbar';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons';
 import { ThemeLayout } from '#/enum.ts';
 import { setSettings } from '@/store/features/setting.ts';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { NAV_COLLAPSED_WIDTH, NAV_WIDTH } from '@/layouts/dashboards/config.ts';
 
 const Nav = () => {
@@ -19,12 +19,13 @@ const Nav = () => {
     const routeToMenuFn = useRouteToMenuFn();
     const { pathname } = useLocation();
     const matches = useMatches();
+    const dispatch = useAppDispatch();
     const menuList = routeToMenuFn(menuFilter(permissionRoutes));
     const settings = useAppSelector(state => state.settings.setting);
     const setThemeLayout = (themeLayout: ThemeLayout) => {
-        setSettings({
+        dispatch(setSettings({
             ...settings, themeLayout
-        });
+        }));
     };
     const [openKeys, setOpenKeys] = useState<string[]>([]);
     const onClick: MenuProps['onClick'] = ({ key, keyPath }) => {
@@ -55,14 +56,16 @@ const Nav = () => {
     };
     return (
         <>
-            <div className="h-full flex flex-col" style={{
-                width: collapsed ? NAV_COLLAPSED_WIDTH : NAV_WIDTH,
-                borderRight: `1px dashed rgba(217, 217, 217, 0.6)`
-            }}>
+            <div className="h-full flex flex-col"
+                 style={{
+                     width: collapsed ? NAV_COLLAPSED_WIDTH : NAV_WIDTH,
+                     borderRight: `1px dashed rgba(217, 217, 217, 0.6)`
+                 }}>
                 <div className="flex items-center h-20 py-4 justify-center relative">
                     <div><Logo /></div>
                     {!collapsed &&
-                        <span className="ml-2 text-xl font-bold" style={{ color: colorPrimary }}>Unknown Admin </span>}
+						<span className="ml-2 text-xl font-bold"
+							  style={{ color: colorPrimary }}>Unknown Admin </span>}
                     <button onClick={toggleCollapsed}
                             className="absolute right-0 top-7 translate-x-1/2 cursor-pointer w-6 h-6 text-xl">
                         {collapsed ? <MenuUnfoldOutlined size={20} /> : <MenuFoldOutlined size={20} />}

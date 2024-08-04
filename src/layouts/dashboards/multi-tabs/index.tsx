@@ -7,11 +7,13 @@ import { DragDropContext, Draggable, Droppable, OnDragEndResponder, DroppablePro
 import { Iconify } from '@/components/icon';
 import { useRouter } from '@/router/hooks';
 import { replaceDynamicParams } from '@/router/hooks/use-current-route-meta';
-import { MultiTabOperation } from '#/enum';
+import { MultiTabOperation, ThemeLayout } from '#/enum';
+import { useAppSelector } from '@/store';
+import { NAV_COLLAPSED_WIDTH, NAV_WIDTH } from '@/layouts/dashboards/config.ts';
 
 const MultiTabs = () => {
     const [hoveringTabKey, setHoveringTabKey] = useState('');
-    const { push } = useRouter()
+    const { push } = useRouter();
 
     const { t } = useTranslation();
     const {
@@ -23,10 +25,11 @@ const MultiTabs = () => {
         closeOthersTab,
         closeAll,
         closeLeft,
-        closeRight,
+        closeRight
     } = useMultiTabsContext();
     const themeToken = useThemeToken();
-    console.log(tabs)
+    const { themeLayout } = useAppSelector(state => state.settings.setting);
+    console.log(themeLayout);
     /**
      * tab样式
      */
@@ -40,7 +43,7 @@ const MultiTabs = () => {
                 borderColor: themeToken.colorBorderSecondary,
                 backgroundColor: themeToken.colorBgLayout,
                 transition:
-                    'color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
+                    'color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, background 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms'
             };
 
             if (isActive) {
@@ -49,7 +52,7 @@ const MultiTabs = () => {
             }
             return result;
         },
-        [activeTabRoutePath, hoveringTabKey, themeToken],
+        [activeTabRoutePath, hoveringTabKey, themeToken]
     );
 
     const multiTabsStyle: CSSProperties = {
@@ -57,10 +60,12 @@ const MultiTabs = () => {
         top: 80,
         left: 'auto',
         height: 32,
+        right: 0,
         // backgroundColor: Color(colorBgElevated).alpha(1).toString(),
-        // borderBottom: `1px dashed ${Color(colorBorder).alpha(0.6).toString()}`,
+        borderBottom: `1px dashed rgba(217, 217, 217, 0.6)`,
         transition: 'top 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms',
-        width: 'calc(100% - 260px)'
+        width: `calc(100% - ${themeLayout === ThemeLayout.Vertical ? NAV_WIDTH : NAV_COLLAPSED_WIDTH}px)`,
+        backgroundColor: 'white'
     };
     const onDragEnd: OnDragEndResponder = ({ destination, source }) => {
         // 拖拽到非法非 droppable区域
@@ -77,15 +82,15 @@ const MultiTabs = () => {
         newTabs.splice(destination.index, 0, movedTab);
         setTabs(newTabs);
 
-    }
+    };
     const handleTabClick = ({ key, params = {} }: KeepAliveTab) => {
         const tabKey = replaceDynamicParams(key, params);
         push(tabKey);
-    }
-    const [openDropdownTabKey, setOpenDropdownTabKey] = useState('')
+    };
+    const [openDropdownTabKey, setOpenDropdownTabKey] = useState('');
     /**
-      * tab dropdown下拉选
-      */
+     * tab dropdown下拉选
+     */
     const menuItems = useMemo<MenuProps['items']>(
         () => [
             // {
@@ -96,16 +101,18 @@ const MultiTabs = () => {
             {
                 label: t(`sys.tab.${MultiTabOperation.REFRESH}`),
                 key: MultiTabOperation.REFRESH,
-                icon: <Iconify icon="mdi:reload" size={18} />,
+                icon: <Iconify icon="mdi:reload"
+                               size={18} />
             },
             {
                 label: t(`sys.tab.${MultiTabOperation.CLOSE}`),
                 key: MultiTabOperation.CLOSE,
-                icon: <Iconify icon="material-symbols:close" size={18} />,
-                disabled: tabs.length === 1,
+                icon: <Iconify icon="material-symbols:close"
+                               size={18} />,
+                disabled: tabs.length === 1
             },
             {
-                type: 'divider',
+                type: 'divider'
             },
             {
                 label: t(`sys.tab.${MultiTabOperation.CLOSELEFT}`),
@@ -117,34 +124,37 @@ const MultiTabs = () => {
                         className="rotate-180"
                     />
                 ),
-                disabled: tabs.findIndex((tab) => tab.key === openDropdownTabKey) === 0,
+                disabled: tabs.findIndex((tab) => tab.key === openDropdownTabKey) === 0
             },
             {
                 label: t(`sys.tab.${MultiTabOperation.CLOSERIGHT}`),
                 key: MultiTabOperation.CLOSERIGHT,
-                icon: <Iconify icon="material-symbols:tab-close-right-outline" size={18} />,
-                disabled: tabs.findIndex((tab) => tab.key === openDropdownTabKey) === tabs.length - 1,
+                icon: <Iconify icon="material-symbols:tab-close-right-outline"
+                               size={18} />,
+                disabled: tabs.findIndex((tab) => tab.key === openDropdownTabKey) === tabs.length - 1
             },
             {
-                type: 'divider',
+                type: 'divider'
             },
             {
                 label: t(`sys.tab.${MultiTabOperation.CLOSEOTHERS}`),
                 key: MultiTabOperation.CLOSEOTHERS,
-                icon: <Iconify icon="material-symbols:tab-close-outline" size={18} />,
-                disabled: tabs.length === 1,
+                icon: <Iconify icon="material-symbols:tab-close-outline"
+                               size={18} />,
+                disabled: tabs.length === 1
             },
             {
                 label: t(`sys.tab.${MultiTabOperation.CLOSEALL}`),
                 key: MultiTabOperation.CLOSEALL,
-                icon: <Iconify icon="mdi:collapse-all-outline" size={18} />,
-            },
+                icon: <Iconify icon="mdi:collapse-all-outline"
+                               size={18} />
+            }
         ],
-        [openDropdownTabKey, t, tabs],
+        [openDropdownTabKey, t, tabs]
     );
     /**
- * tab dropdown click
- */
+     * tab dropdown click
+     */
     const menuClick = useCallback(
         (menuInfo: any, tab: KeepAliveTab) => {
             const { key, domEvent } = menuInfo;
@@ -175,11 +185,11 @@ const MultiTabs = () => {
                     break;
             }
         },
-        [refreshTab, closeTab, closeOthersTab, closeLeft, closeRight, closeAll],
+        [refreshTab, closeTab, closeOthersTab, closeLeft, closeRight, closeAll]
     );
     /**
-   * 当前显示dorpdown的tab
-   */
+     * 当前显示dorpdown的tab
+     */
     const onOpenChange = (open: boolean, tab: KeepAliveTab) => {
         if (open) {
             setOpenDropdownTabKey(tab.key);
@@ -191,11 +201,11 @@ const MultiTabs = () => {
         if (tab.hideTab) return null;
         return (
             <Dropdown trigger={['contextMenu']}
-                onOpenChange={(open) => onOpenChange(open, tab)}
-                menu={
-                    { items: menuItems, onClick: (menuInfo) => menuClick(menuInfo, tab) }
-                }
-                >
+                      onOpenChange={(open) => onOpenChange(open, tab)}
+                      menu={
+                          { items: menuItems, onClick: (menuInfo) => menuClick(menuInfo, tab) }
+                      }
+            >
                 <div
                     className="relative flex items-center px-4 py-1 mx-px select-none"
                     style={calcTabStyle(tab)}
@@ -208,39 +218,51 @@ const MultiTabs = () => {
                     <div>
                         {t(tab.label)}
                     </div>
-                    <Iconify icon="ion:close-outline" size={18}
-                        className="opacity-50 cursor-pointer"
-                        onClick={(e) => { e.stopPropagation(); closeTab(tab.key) }}
-                        style={{
-                            visibility: (tab.key !== activeTabRoutePath && tab.key !== hoveringTabKey) ||
-                                tabs.length === 1
-                                ? 'hidden'
-                                : 'visible',
-                        }}
+                    <Iconify icon="ion:close-outline"
+                             size={18}
+                             className="opacity-50 cursor-pointer"
+                             onClick={(e) => {
+                                 e.stopPropagation();
+                                 closeTab(tab.key);
+                             }}
+                             style={{
+                                 visibility: (tab.key !== activeTabRoutePath && tab.key !== hoveringTabKey) ||
+                                 tabs.length === 1
+                                     ? 'hidden'
+                                     : 'visible'
+                             }}
                     ></Iconify>
                 </div>
             </Dropdown>
-        )
+        );
     }, [activeTabRoutePath, hoveringTabKey, closeTab, tabs.length,
-        t,
+        t
 
-    ])
+    ]);
     const scrollContainer = useRef<HTMLDivElement>(null);
     const renderTabBar: TabsProps['renderTabBar'] = () => {
         return (
-            <div style={multiTabsStyle} className="z-20 w-full">
+            <div style={multiTabsStyle}
+                 className="z-20 w-full">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <Droppable droppableId="tabsDroppable" direction="horizontal">
+                    <Droppable droppableId="tabsDroppable"
+                               direction="horizontal">
                         {
                             (provided: DroppableProvided) => (
-                                <div ref={provided.innerRef} {...provided.droppableProps} className="flex w-full">
-                                    <div ref={scrollContainer} className="flex w-full px-2 hide-scrollbar">
+                                <div ref={provided.innerRef} {...provided.droppableProps}
+                                     className="flex w-full">
+                                    <div ref={scrollContainer}
+                                         className="flex w-full px-2 hide-scrollbar">
                                         {
                                             tabs.map((tab, index) => (
-                                                <div id={`tab-${index}`} className="flex-shrink-0" key={tab.key}
-                                                    onClick={() => handleTabClick(tab)}
+                                                <div id={`tab-${index}`}
+                                                     className="flex-shrink-0"
+                                                     key={tab.key}
+                                                     onClick={() => handleTabClick(tab)}
                                                 >
-                                                    <Draggable key={tab.key} draggableId={tab.key} index={index}>
+                                                    <Draggable key={tab.key}
+                                                               draggableId={tab.key}
+                                                               index={index}>
                                                         {
                                                             (provided) => (
                                                                 <div
@@ -265,11 +287,11 @@ const MultiTabs = () => {
                     </Droppable>
                 </DragDropContext>
             </div>
-        )
-    }
+        );
+    };
     /**
- * 所有tab
- */
+     * 所有tab
+     */
     const tabContentRef = useRef(null);
 
     const tabItems = useMemo(() => {
@@ -278,10 +300,11 @@ const MultiTabs = () => {
             key: tab.key,
             closable: tabs.length > 1, // 保留一个
             children: (
-                <div ref={tabContentRef} key={tab.timeStamp}>
+                <div ref={tabContentRef}
+                     key={tab.timeStamp}>
                     {tab.children}
                 </div>
-            ),
+            )
         }));
     }, [tabs, renderTabLabel]);
 
@@ -289,8 +312,10 @@ const MultiTabs = () => {
         <>
             <Tabs
                 tabBarGutter={4}
-                renderTabBar={renderTabBar} items={tabItems} activeKey={activeTabRoutePath} />
+                renderTabBar={renderTabBar}
+                items={tabItems}
+                activeKey={activeTabRoutePath} />
         </>
-    )
-}
+    );
+};
 export default MultiTabs;
