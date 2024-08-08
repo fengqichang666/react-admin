@@ -1,0 +1,1 @@
+import{by as s,bB as t,j as e,aF as i}from"./index-6b49b323.js";const a=()=>{const{loginState:n,setLoginState:o}=s();return n!==t.REGISTER?null:e.jsx("div",{children:e.jsx(i,{onClick:()=>o(t.LOGIN),children:"返回"})})};export{a as default};
