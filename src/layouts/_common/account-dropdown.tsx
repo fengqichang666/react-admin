@@ -1,19 +1,30 @@
 import { IconButton } from '@/components/icon';
-import { selectUserInfo } from '@/store/features/user.ts';
+import { clearUserInfoAndToken, selectUserInfo } from '@/store/features/user.ts';
 import { useAppSelector } from '@/store';
 import { Divider, Dropdown, DropdownProps, MenuProps } from 'antd';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useThemeToken } from '@/theme/hooks/use-theme-token.ts';
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { useLoginStateContext } from '@/pages/sys/login/providers/LoginStateProvider.tsx';
+import { useRouter } from '@/router/hooks';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
 const AccountDropdown = () => {
+    const { replace } = useRouter();
     const { t } = useTranslation();
     const { username, email, avatar } = useAppSelector(selectUserInfo);
+    const dispatch = useDispatch();
+    const { backToLogin } = useLoginStateContext();
     const logout = () => {
-
+        try {
+            dispatch(clearUserInfoAndToken());
+            backToLogin();
+        } finally {
+            replace('/login');
+        }
     };
     const { colorBgElevated, borderRadiusLG, boxShadowSecondary } = useThemeToken();
     const contentStyle: React.CSSProperties = {

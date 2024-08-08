@@ -1,4 +1,4 @@
-import { Card, Popconfirm, Table, Tag } from 'antd';
+import { Button, Card, Popconfirm, Table, Tag } from 'antd';
 import { useAppSelector } from '@/store';
 import { ColumnsType } from 'antd/es/table';
 import { Permission } from '#/entity.ts';
@@ -23,6 +23,7 @@ const defaultPermissionValue: Permission = {
 const PermissionPage = () => {
     const permissions = useAppSelector(state => state.user.userInfo.permissions);
     const [permissionModalProps, setPermissionModalProps] = useState({});
+    console.log(permissionModalProps);
     const columns: ColumnsType<Permission> = [
         {
             title: 'Name',
@@ -115,7 +116,7 @@ const PermissionPage = () => {
     };
     return (
         <Card
-            title="Permission List"
+            title="Permission List" extra={<Button type="primary">New</Button>}
         >
             <Table
                 scroll={{ x: 'max-content' }}

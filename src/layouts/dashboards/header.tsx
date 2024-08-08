@@ -21,7 +21,7 @@ const header: FunctionComponent = () => {
                 <div className="flex">
                     <SearchBar />
                     <LocalePicker />
-                    <IconButton>
+                    <IconButton onClick={() => window.open('https://github.com/fengqichang666/react-admin')}>
                         <Iconify icon="mdi:github"
                                  size="24" />
                     </IconButton>

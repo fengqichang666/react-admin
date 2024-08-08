@@ -15,7 +15,7 @@ const Main = forwardRef<HTMLElement, Props>(({ offsetTop = false }, ref) => {
     return (
         <Content style={mainStyle}
                  className="flex overflow-auto">
-            <div className="w-full sm:p-2 xl:max-w-screen-xl m-auto">
+            <div className="w-full sm:p-2 ">
                 <MultiTabsProvider>
                     <MultiTabs />
                 </MultiTabsProvider>

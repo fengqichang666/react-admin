@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.tsx';
 import './index.css';
@@ -12,7 +11,7 @@ import { StartOptions } from 'msw/browser';
 const { MODE } = import.meta.env;
 ReactDOM.createRoot(document.getElementById('root')!).render(
     // <React.StrictMode>
-        <App />
+    <App />
     // </React.StrictMode>
 );
 let options: StartOptions = { onUnhandledRequest: 'bypass' };

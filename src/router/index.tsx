@@ -5,6 +5,7 @@ import { usePermissionRoutes } from '@/router/hooks/use-permission-routes.tsx';
 import { AppRouteObject } from '#/router.ts';
 import AuthGuard from '@/router/components/auth-guard.tsx';
 import DashboardLayout from '@/layouts/dashboards';
+import { ErrorRoutes } from '@/router/modules/error-routes.tsx';
 // import { Routers } from './RoutesList';
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
@@ -28,7 +29,7 @@ export default function Router() {
         ),
         children: [{ index: true, element: <Navigate to={HOMEPAGE} replace /> }, ...permissionRoutes]
     };
-    const routes = [LoginRoute, asyncRoutes, PAGE_NOT_FOUND_ROUTE];
+    const routes = [LoginRoute, asyncRoutes, ErrorRoutes, PAGE_NOT_FOUND_ROUTE];
     const router = createHashRouter(routes as unknown as RouteObject[]);
     return <RouterProvider router={router} />;
 }
