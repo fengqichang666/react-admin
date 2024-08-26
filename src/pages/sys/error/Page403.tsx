@@ -3,7 +3,7 @@ import { Button, Typography } from 'antd';
 
 const { VITE_APP_HOMEPAGE: HOMEPAGE } = import.meta.env;
 
-export default function Page404() {
+export default function Page403() {
     const { replace } = useRouter();
     const goHome = () => {
         replace(HOMEPAGE);
@@ -11,14 +11,14 @@ export default function Page404() {
     return (
         <div className="flex flex-col items-center h-screen justify-center ">
             <Typography.Title level={1} className="text-center">
-                404!
+                403 No permission!
             </Typography.Title>
             <Typography.Title level={3} className="text-center">
-                Sorry, Page Not Found!
+                No permission
             </Typography.Title>
             <Typography.Paragraph type="secondary" className="text-center">
-                Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL?
-                Be sure to check your spelling.
+                The page you are trying access has restricted access. Please refer to your system
+                administrator
             </Typography.Paragraph>
             <div className="text-center">
                 <Button
