@@ -1,1 +1,0 @@
-import{bG as s,bJ as t,j as e,aR as i}from"./index-b430483c.js";const a=()=>{const{loginState:n,setLoginState:o}=s();return n!==t.REGISTER?null:e.jsx("div",{children:e.jsx(i,{onClick:()=>o(t.LOGIN),children:"返回"})})};export{a as default};
