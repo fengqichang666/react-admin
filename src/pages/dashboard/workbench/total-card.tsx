@@ -62,7 +62,7 @@ function ChartLine({ data }: { data: number[] }) {
                 lineStyle: {
                     normal: {
                         width: 3,
-                        color: themeToken.colorPrimaryText
+                        color: themeToken.colorPrimaryActive
                     }
                 },
                 showSymbol: false,

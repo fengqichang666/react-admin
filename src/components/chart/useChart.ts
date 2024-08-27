@@ -1,10 +1,23 @@
 import { mergeDeepRight } from 'ramda';
 import { useAppSelector } from '@/store';
+import { useThemeToken } from '@/theme/hooks/use-theme-token.ts';
 
 const userChart = (options: any, data: any = []) => {
     const theme = useAppSelector(state => state.settings.setting);
+    const themeToken = useThemeToken();
     console.log(theme);
     const baseOptions = {
+        color: [
+            themeToken.colorPrimary,
+            themeToken.colorWarning,
+            themeToken.colorInfo,
+            themeToken.colorError,
+            themeToken.colorSuccess,
+            themeToken.colorWarningActive,
+            themeToken.colorSuccessActive,
+            themeToken.colorInfoActive,
+            themeToken.colorInfoText
+        ],
         tooltip: {
             trigger: 'item'
         },
@@ -13,16 +26,18 @@ const userChart = (options: any, data: any = []) => {
             bottom: 30
         },
         legend: {
-            bottom: '0%',
+            bottom: '0',
             left: 'center',
             icon: 'circle',
-            itemStyle: {}
+            textStyle: {
+                color: themeToken.colorPrimary
+            }
         },
         series: [
             {
                 animation: false,
                 type: 'pie',
-                radius: ['70%', '75%'],
+                radius: ['70%', '78%'],
                 avoidLabelOverlap: false,
                 label: {
                     show: false,
@@ -31,7 +46,7 @@ const userChart = (options: any, data: any = []) => {
                 emphasis: {
                     scale: false,
                     label: {
-                        show: true,
+                        show: false,
                         fontSize: 16,
                         fontWeight: 'bold',
                         formatter: '{b} \n {d}'
